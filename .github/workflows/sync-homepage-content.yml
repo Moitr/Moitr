@@ -24,8 +24,9 @@ jobs:
       - name: Update latest commit, articles, and friends
         run: |
           latest="$(git log -1 --pretty=format:'%h | %ad | %s' --date=short)"
+          commit_sha="$(git rev-parse HEAD)"
           updated="$(TZ=Asia/Shanghai date +%F)"
-          LATEST="$latest" UPDATED="$updated" node <<'NODE'
+          LATEST="$latest" COMMIT_SHA="$commit_sha" UPDATED="$updated" node <<'NODE'
           const fs = require('node:fs');
           const readmePath = 'README.md';
           const source = fs.readFileSync('/tmp/homepage-readme.md', 'utf8');
@@ -46,7 +47,8 @@ jobs:
             readme = readme.replace(pattern, `$1\n${content}\n$2`);
           };
 
-          readme = readme.replace(/^Latest commit:.*$/m, `Latest commit: ${process.env.LATEST}`);
+          const commitUrl = `https://github.com/Moitr/Moitr/commit/${process.env.COMMIT_SHA}`;
+          readme = readme.replace(/^Latest commit:.*$/m, `Latest commit: [${process.env.LATEST}](${commitUrl})  `);
           readme = readme.replace(/^Last updated:.*$/m, `Last updated: ${process.env.UPDATED}`);
           replaceSection('articles', section('articles'));
           replaceSection('friends', section('friends'));
