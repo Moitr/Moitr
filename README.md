@@ -15,4 +15,4 @@ I'm Ruiyang Dong ([@Moitr](https://moitr.cc/)), A student shaping code and chasi
 <!-- friends:end -->
 
 Latest commit: update automatically once a day.
-本页最后更新：等待自动更新。
+Last updated: waiting for automatic update.

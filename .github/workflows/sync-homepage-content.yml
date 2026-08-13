@@ -47,7 +47,7 @@ jobs:
           };
 
           readme = readme.replace(/^Latest commit:.*$/m, `Latest commit: ${process.env.LATEST}`);
-          readme = readme.replace(/^本页最后更新：.*$/m, `本页最后更新：${process.env.UPDATED}`);
+          readme = readme.replace(/^Last updated:.*$/m, `Last updated: ${process.env.UPDATED}`);
           replaceSection('articles', section('articles'));
           replaceSection('friends', section('friends'));
           fs.writeFileSync(readmePath, readme.replace(/\r\n/g, '\n'), 'utf8');
