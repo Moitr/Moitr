@@ -23,5 +23,5 @@ I'm Ruiyang Dong ([@Moitr](https://moitr.cc/)), A student shaping code and chasi
 | [天仙子](https://www.tianxianzi.me/) | 自動手記人形 |
 <!-- friends:end -->
 
-Latest commit: [e467b90 | 2026-08-13 | chore: use GitHub Actions bot for README sync](https://github.com/Moitr/Moitr/commit/e467b90ca56d0c903d65993c99d1df1efa939e28)  
+Latest commit: [d171de7](https://github.com/Moitr/Moitr/commit/d171de722c7ed8fce6bd8c67d031ed096eb78fd7) | 2026-08-13 | docs: link only latest commit and separate update date  
 Last updated: 2026-08-13

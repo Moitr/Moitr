@@ -22,10 +22,12 @@ jobs:
 
       - name: Update latest commit, articles, and friends
         run: |
-          latest="$(git log -1 --pretty=format:'%h | %ad | %s' --date=short)"
+          latest_sha="$(git log -1 --pretty=format:'%h')"
+          latest_date="$(git log -1 --pretty=format:'%ad' --date=short)"
+          latest_subject="$(git log -1 --pretty=format:'%s')"
           commit_sha="$(git rev-parse HEAD)"
           updated="$(TZ=Asia/Shanghai date +%F)"
-          LATEST="$latest" COMMIT_SHA="$commit_sha" UPDATED="$updated" node <<'NODE'
+          LATEST_SHA="$latest_sha" LATEST_DATE="$latest_date" LATEST_SUBJECT="$latest_subject" COMMIT_SHA="$commit_sha" UPDATED="$updated" node <<'NODE'
           const fs = require('node:fs');
           const readmePath = 'README.md';
           const source = fs.readFileSync('/tmp/homepage-readme.md', 'utf8');
@@ -47,7 +49,7 @@ jobs:
           };
 
           const commitUrl = `https://github.com/Moitr/Moitr/commit/${process.env.COMMIT_SHA}`;
-          readme = readme.replace(/^Latest commit:.*$/m, `Latest commit: [${process.env.LATEST}](${commitUrl})  `);
+          readme = readme.replace(/^Latest commit:.*$/m, `Latest commit: [${process.env.LATEST_SHA}](${commitUrl}) | ${process.env.LATEST_DATE} | ${process.env.LATEST_SUBJECT}  `);
           readme = readme.replace(/^Last updated:.*$/m, `Last updated: ${process.env.UPDATED}`);
           replaceSection('articles', section('articles'));
           replaceSection('friends', section('friends'));
