@@ -1,0 +1,61 @@
+name: Sync homepage content to profile README
+
+on:
+  schedule:
+    - cron: '0 0 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update-readme:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.MOITR_PAT }}
+
+      - name: Fetch homepage content
+        run: curl -fsSL https://raw.githubusercontent.com/Moitr/homepage/main/README.md -o /tmp/homepage-readme.md
+
+      - name: Update latest commit, articles, and friends
+        run: |
+          latest="$(git log -1 --pretty=format:'%h | %ad | %s' --date=short)"
+          LATEST="$latest" node <<'NODE'
+          const fs = require('node:fs');
+          const readmePath = 'README.md';
+          const source = fs.readFileSync('/tmp/homepage-readme.md', 'utf8');
+          let readme = fs.readFileSync(readmePath, 'utf8');
+
+          const section = (name) => {
+            const start = `<!-- ${name}:start -->`;
+            const end = `<!-- ${name}:end -->`;
+            const startIndex = source.indexOf(start);
+            const endIndex = source.indexOf(end);
+            if (startIndex < 0 || endIndex < startIndex) throw new Error(`Missing ${name} markers in homepage README`);
+            return source.slice(startIndex + start.length, endIndex).trim();
+          };
+
+          const replaceSection = (name, content) => {
+            const pattern = new RegExp(`(<!-- ${name}:start -->)[\\s\\S]*?(<!-- ${name}:end -->)`);
+            if (!pattern.test(readme)) throw new Error(`Missing ${name} markers in profile README`);
+            readme = readme.replace(pattern, `$1\n${content}\n$2`);
+          };
+
+          readme = readme.replace(/^Latest commit:.*$/m, `Latest commit: ${process.env.LATEST}`);
+          replaceSection('articles', section('articles'));
+          replaceSection('friends', section('friends'));
+          fs.writeFileSync(readmePath, readme.replace(/\r\n/g, '\n'), 'utf8');
+          NODE
+
+      - name: Commit README update
+        run: |
+          git config user.name "Moitr"
+          git config user.email "Moitr@users.noreply.github.com"
+          git add README.md
+          git diff --cached --quiet && exit 0
+          git commit -m "docs: update latest commit in README"
+          git push
