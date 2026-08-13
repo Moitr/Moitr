@@ -5,14 +5,23 @@ I'm Ruiyang Dong ([@Moitr](https://moitr.cc/)), A student shaping code and chasi
 ## Articles
 
 <!-- articles:start -->
-
+| # | Article | Original | Published |
+| ---: | --- | --- | --- |
+| 5 | [如何将你的 MixSpace 文章自动同步到 Hexo](https://moitr.cc/archives/5/) | [Original](https://moitr.ren/posts/tech/sync-mixspace-articles-to-hexo) | 2026-08-11 |
+| 4 | [从零构建永久存证的区块链博客：Polygon + Hexo + GitHub Actions 实战](https://moitr.cc/archives/4/) | [Original](https://moitr.ren/posts/tech/build-permanent-blockchain-blog-polygon-hexo-github-actions) | 2026-08-10 |
+| 3 | [休学后都发生了什么](https://moitr.cc/archives/3/) | [Original](https://moitr.ren/notes/1) | 2026-04-24 |
+| 2 | [使用 Docker 搭建一个视奸自己的网站](https://moitr.cc/archives/2/) | [Original](https://moitr.ren/posts/categories/build-self-monitoring-website-with-docker) | 2026-04-23 |
+| 1 | [新的开始](https://moitr.cc/archives/1/) | [Original](https://moitr.ren/posts/categories/new-beginning) | 2025-11-21 |
 <!-- articles:end -->
 
 ## Friends
 
 <!-- friends:start -->
-
+| Friend | Description |
+| --- | --- |
+| [星灯](https://eruchitand.top/) | 传颂之物 |
+| [天仙子](https://www.tianxianzi.me/) | 自動手記人形 |
 <!-- friends:end -->
 
-Latest commit: update automatically once a day.
-Last updated: waiting for automatic update.
+Latest commit: aeb2a6f | 2026-08-13 | docs: use English update label
+Last updated: 2026-08-13
