@@ -20,14 +20,10 @@ jobs:
       - name: Fetch homepage content
         run: curl -fsSL https://raw.githubusercontent.com/Moitr/homepage/main/README.md -o /tmp/homepage-readme.md
 
-      - name: Update latest commit, articles, and friends
+      - name: Update articles and friends
         run: |
-          latest_sha="$(git log -1 --pretty=format:'%h')"
-          latest_date="$(git log -1 --pretty=format:'%ad' --date=short)"
-          latest_subject="$(git log -1 --pretty=format:'%s')"
-          commit_sha="$(git rev-parse HEAD)"
           updated="$(TZ=Asia/Shanghai date +%F)"
-          LATEST_SHA="$latest_sha" LATEST_DATE="$latest_date" LATEST_SUBJECT="$latest_subject" COMMIT_SHA="$commit_sha" UPDATED="$updated" node <<'NODE'
+          UPDATED="$updated" node <<'NODE'
           const fs = require('node:fs');
           const readmePath = 'README.md';
           const source = fs.readFileSync('/tmp/homepage-readme.md', 'utf8');
@@ -48,8 +44,6 @@ jobs:
             readme = readme.replace(pattern, `$1\n${content}\n$2`);
           };
 
-          const commitUrl = `https://github.com/Moitr/Moitr/commit/${process.env.COMMIT_SHA}`;
-          readme = readme.replace(/^Latest commit:.*$/m, `Latest commit: [${process.env.LATEST_SHA}](${commitUrl}) | ${process.env.LATEST_DATE} | ${process.env.LATEST_SUBJECT}  `);
           readme = readme.replace(/^Last updated:.*$/m, `Last updated: ${process.env.UPDATED}`);
           replaceSection('articles', section('articles'));
           replaceSection('friends', section('friends'));
@@ -62,5 +56,5 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add README.md
           git diff --cached --quiet && exit 0
-          git commit -m "docs: update latest commit in README"
+          git commit -m "docs: sync homepage content"
           git push
