@@ -2,7 +2,10 @@
 
 I'm Ruiyang Dong ([@Moitr](https://moitr.cc/)), A student shaping code and chasing poetry. I build with logic, live with curiosity, and find beauty between the lines. Still learning, still creating, still becoming.
 
-## Articles
+<details>
+<summary><strong>Articles & Friends</strong></summary>
+
+### Articles
 
 <!-- articles:start -->
 | # | Article | Original | Published |
@@ -14,7 +17,7 @@ I'm Ruiyang Dong ([@Moitr](https://moitr.cc/)), A student shaping code and chasi
 | 1 | [新的开始](https://moitr.cc/archives/1/) | [Original](https://moitr.ren/posts/categories/new-beginning) | 2025-11-21 |
 <!-- articles:end -->
 
-## Friends
+### Friends
 
 <!-- friends:start -->
 | Friend | Description |
@@ -22,5 +25,7 @@ I'm Ruiyang Dong ([@Moitr](https://moitr.cc/)), A student shaping code and chasi
 | [星灯](https://eruchitand.top/) | 传颂之物 |
 | [天仙子](https://www.tianxianzi.me/) | 自動手記人形 |
 <!-- friends:end -->
+
+</details>
 
 Last updated: 2026-09-01
